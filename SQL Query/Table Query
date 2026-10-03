@@ -1,0 +1,56 @@
+CREATE DATABASE IF NOT EXISTS fms_new_format_2026;
+USE fms_new_format_2026;
+
+CREATE TABLE tasks (
+    task_id INT AUTO_INCREMENT PRIMARY KEY,
+    task_name VARCHAR(255),
+    current_stage VARCHAR(10),
+    from_stage VARCHAR(10),
+    status VARCHAR(50),
+    remark TEXT,
+    attachment_path VARCHAR(255),
+    tg_attachment_path VARCHAR(255),
+    last_attachment_step VARCHAR(50),
+    planned_end_time DATETIME,
+    emp_code VARCHAR(255),
+    created_at DATETIME,
+    allocate_to VARCHAR(50),
+    allocate_emp_code VARCHAR(50),
+    created_emp_code VARCHAR(50),
+    project VARCHAR(255),
+    task_details VARCHAR(500),
+    1st_planned_end_time DATETIME,
+    pc_update_stage VARCHAR(10),
+    submit_id VARCHAR(50),
+    emp_name VARCHAR(255),
+    actual_emp_code VARCHAR(255),
+    actual_emp_name VARCHAR(255),
+    hod_emp_code VARCHAR(255),
+    hod_name VARCHAR(255),
+    task_created_by VARCHAR(50),
+    task_remarks TEXT,
+    submit_time DATETIME,
+    fms_name VARCHAR(100) DEFAULT 'NEW_FMS_FORMAT'
+);
+
+
+CREATE TABLE task_updates (
+    update_id INT AUTO_INCREMENT PRIMARY KEY,
+    task_id INT,
+    task_name VARCHAR(255),
+    from_stage VARCHAR(10),
+    to_stage VARCHAR(10),
+    remark TEXT,
+    attachment_path VARCHAR(255),
+    planned_end_time DATETIME,
+    decision VARCHAR(10),
+    submit_id VARCHAR(50),
+    actual_time DATETIME,
+    allocate_to VARCHAR(255),
+    allocate_emp_code VARCHAR(50),
+    project VARCHAR(255),
+    previous_id VARCHAR(50),
+    last_submit_time DATETIME,
+    fms_name VARCHAR(50) DEFAULT 'NEW_CONTRACTOR_REGISTRATION',
+    FOREIGN KEY (task_id) REFERENCES tasks(task_id)
+);

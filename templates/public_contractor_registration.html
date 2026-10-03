@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>P1 – RECEIVE CONTRACTOR REGISTRATION GOOGLE FORM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+        rel="stylesheet"/>
+  <!-- DataTables + Bootstrap CSS -->
+  <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"
+        rel="stylesheet"/>
+  <!-- jQuery UI (datepicker) -->
+  <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+        rel="stylesheet"/>
+  <!-- Select2 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css"
+        rel="stylesheet"/>
+
+  <style>
+    body { padding:2rem; background:#f8fafc; }
+    .filter-row .form-control { min-width:120px; }
+    .modal-lg { max-width:800px; }
+  </style>
+</head>
+<body>
+<!--  <div class="d-flex justify-content-between align-items-center mb-3">-->
+<!--    <h2>P1 – RECEIVE CONTRACTOR REGISTRATION GOOGLE FORM</h2>-->
+    <button class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#newProposalModal">
+      NEW PROPOSAL FOR CONTRACTOR REGISTRATION
+    </button>
+<!--  </div>-->
+
+<!--  &lt;!&ndash; FILTERS &ndash;&gt;-->
+<!--  <div class="row filter-row mb-2 g-2">-->
+<!--    <div class="col"><select id="idFilter"        class="form-select" multiple data-placeholder="Filter ID"></select></div>-->
+<!--    <div class="col"><select id="locationFilter"  class="form-select" multiple data-placeholder="Filter Location"></select></div>-->
+<!--    <div class="col"><select id="statusFilter"    class="form-select" multiple data-placeholder="Filter Status"></select></div>-->
+<!--    <div class="col"><input type="text" id="plannedStart" class="form-control" placeholder="Planned From"></div>-->
+<!--    <div class="col"><input type="text" id="plannedEnd"   class="form-control" placeholder="Planned To"></div>-->
+<!--    <div class="col-auto">-->
+<!--      <button id="clearFilters" class="btn btn-secondary">Clear</button>-->
+<!--      <button type="button" class="btn btn-success"-->
+<!--              onclick="window.open('https://drive.google.com/file/d/1gMPsXBNOLOW_43fLnmvHUGvvxDD1WR1-/view?usp=sharing','_blank')">-->
+<!--        FLOW CHART-->
+<!--      </button>-->
+<!--       <button type="button" class="btn btn-success"-->
+<!--              onclick="window.open('https://youtu.be/cRChnb0OlDQ?si=rl1Lm-a1fgxUyvpU','_blank')">-->
+<!--        Tutorial Video-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; TABLE &ndash;&gt;-->
+<!--  <table id="p1Table" class="table table-striped table-bordered">-->
+<!--    <thead class="table-dark">-->
+<!--      <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Name_Of_HOD</th>-->
+<!--        <th>Contractor_type</th>-->
+<!--        <th>Account Type</th>-->
+<!--        <th>Number_Of_Line_Items</th>-->
+<!--        <th>GST_STATUS</th>-->
+<!--        <th>Remarks</th>-->
+<!--&lt;!&ndash;        <th>Created By</th>&ndash;&gt;-->
+<!--        <th>Planned</th>-->
+<!--        <th>Actual</th>-->
+<!--        <th>Status</th>-->
+<!--        <th>GST,PAN,MSME Attachments</th>-->
+<!--        <th>Solver Remarks</th>-->
+<!--        <th>Solver Attachments</th>-->
+
+<!--      </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--      {% for t in tasks %}-->
+<!--      <tr>-->
+<!--        <td>{{ t.id }}</td>-->
+<!--        <td>{{ t.task_name }}</td>-->
+<!--        <td>{{ t.location }}</td>-->
+<!--        <td> {{ t.Project }} </td>-->
+<!--        <td>{{ t.MGMT_Task_ID }}</td>-->
+<!--        <td>{{ t.Material_Library }}</td>-->
+<!--        <td>{{ t.remarks or '-' }}</td>-->
+<!--&lt;!&ndash;        <td>{{ t.actual_emp_id }}</td>&ndash;&gt;-->
+<!--        <td>{{ t.planned_time.strftime('%d/%m/%Y %H:%M:%S') }}</td>-->
+<!--        <td>{% if t.actual_time %}{{ t.actual_time.strftime('%d/%m/%Y %H:%M:%S') }}{% endif %}</td>-->
+<!--        <td>{{ t.status }}</td>-->
+
+<!--        &lt;!&ndash; Raise attachments &ndash;&gt;-->
+<!--        <td>-->
+<!--          {% for fname in t.raise_files %}-->
+<!--            <a href="{{ url_for('static', filename='fms_uploads/' ~ fname) }}"-->
+<!--               download title="{{ fname }}"-->
+<!--               class="mx-1 text-decoration-none">-->
+<!--              <i class="bi bi-file-earmark-arrow-down-fill fs-5"></i>-->
+<!--            </a>-->
+<!--          {% endfor %}-->
+<!--        </td>-->
+
+<!--        <td>{{ t.solver_remarks or '-' }}</td>-->
+
+
+<!--        &lt;!&ndash; Solver attachments &ndash;&gt;-->
+<!--&lt;!&ndash;        <td>&ndash;&gt;-->
+<!--&lt;!&ndash;          {% for fname in t.solver_files %}&ndash;&gt;-->
+<!--&lt;!&ndash;            <a href="{{ url_for('static', filename='fms_uploads/' ~ fname) }}"&ndash;&gt;-->
+<!--&lt;!&ndash;               download title="{{ fname }}"&ndash;&gt;-->
+<!--&lt;!&ndash;               class="mx-1 text-decoration-none">&ndash;&gt;-->
+<!--&lt;!&ndash;              <i class="bi bi-file-earmark-arrow-down-fill fs-5"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;          {% endfor %}&ndash;&gt;-->
+<!--&lt;!&ndash;        </td>&ndash;&gt;-->
+<!--        <td>-->
+<!--          {% for fname in t.solver_files %}-->
+<!--            <a href="{{ url_for('static', filename='fms_uploads/' ~ fname) }}"-->
+<!--               download title="{{ fname }}"-->
+<!--               class="mx-1 text-decoration-none">-->
+<!--              <i class="bi bi-file-earmark-arrow-down-fill fs-5"></i>-->
+<!--            </a>-->
+<!--          {% endfor %}-->
+<!--        </td>-->
+
+
+<!--      </tr>-->
+<!--      {% endfor %}-->
+<!--    </tbody>-->
+<!--  </table>-->
+
+   <!-- NEW PROPOSAL MODAL -->
+  <div class="modal fade" id="newProposalModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form id="contractorForm"
+      method="POST"
+      action="{{ url_for('public_contractor_registration') }}"
+      enctype="multipart/form-data">
+          <div class="modal-header">
+            <h5 class="modal-title">PROPOSAL FOR NEW CONTRACTOR REGISTRATION</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-3">
+
+              <div class="col-md-4 mb-3">
+  <label class="form-label">NAME OF USER</label>
+  <input type="text"
+         class="form-control"
+         name="task_name"
+         value="Public User"
+         readonly
+         required>
+</div>
+
+
+              <div class="col-md-4">
+                <label class="form-label">Contractor Category *</label>
+                <select id="budgetHeadSelect"
+                        name="material_library"
+                        class="form-select"
+                        multiple
+                        data-placeholder="Select budget heads…"
+                        required>
+                  <option value="NA">NA</option>
+
+                </select>
+              </div>
+
+
+              <!-- Project dropdown -->
+<!--              <div class="col-md-4">-->
+<!--                <label class="form-label">Account Type *</label>-->
+<!--                <select name="Project" class="form-select" required>-->
+<!--                  <option value="">Select…</option>-->
+<!--                  <option value="Current">Current</option>-->
+<!--                  <option value="Saving">Saving</option>-->
+
+<!--                </select>-->
+<!--              </div>-->
+
+              <!-- Attachments -->
+<!--              <div class="col-md-4">-->
+<!--                <label class="form-label">Attachment 1 - GST Certificate</label>-->
+<!--                <input type="file" name="attachment1" class="form-control">-->
+<!--              </div>-->
+<!--              <div class="col-md-4">-->
+<!--                <label class="form-label">Attachment 2 - MSME Certificate</label>-->
+<!--                <input type="file" name="attachment2" class="form-control">-->
+<!--              </div>-->
+<!--              <div class="col-md-4">-->
+<!--                <label class="form-label">Attachment 3 - PAN Scan Copy</label>-->
+<!--                <input type="file" name="attachment3" class="form-control">-->
+<!--              </div>-->
+
+<!--              <div class="col-md-4">-->
+<!--                <label class="form-label">NUMBER OF LINE ITEMS</label>-->
+<!--                <input-->
+<!--                  type="number"-->
+<!--                  class="form-control"-->
+<!--                  name="MGMT_Task_ID"-->
+<!--                  value="{{ request.form.get('MGMT_Task_ID','') }}"-->
+<!--                  required-->
+<!--                  inputmode="numeric"-->
+<!--                  min="0"-->
+<!--                  step="1"-->
+<!--                  onkeydown="if(['-','+','.','e','E'].includes(event.key)) event.preventDefault();"-->
+<!--                  oninput="this.setCustomValidity(''); if(this.value && !/^\d+$/.test(this.value)){ this.setCustomValidity('Whole numbers only (0,1,2,...)'); }"-->
+<!--                  oninvalid="this.setCustomValidity(this.validity.valueMissing ? 'This field is required' : 'Whole numbers only (0,1,2,...)');"-->
+<!--                >-->
+<!--              </div>-->
+
+              <div class="col-md-4">
+                    <label class="form-label">IS YOUR EMAIL ID *</label>
+
+                    <input
+                        type="email"
+                        class="form-control"
+                        name="form_creator_email"
+                        value="{{ request.form.get('form_creator_email', '') }}"
+                        required
+                        placeholder="example@domain.com"
+                        oninvalid="this.setCustomValidity('Please enter a valid email address')"
+                        oninput="this.setCustomValidity('')"
+                    >
+                </div>
+
+
+              <div class="col-md-4">
+                <label class="form-label">Contractor Type</label>
+                <select name="contractor_type" class="form-select">
+                  <option value="">Select…</option>
+                  <option value="Company-Resident">Company-Resident</option>
+                  <option value="Individual/HUF-Resident">Individual/HUF-Resident</option>
+                  <option value="NRI - Company">NRI - Company</option>
+                  <option value="NRI - Individual/HUF">NRI - Individual/HUF</option>
+                  <option value="EOU">EOU</option>
+                  <option value="Local Authority">Local Authority</option>
+                  <option value="Artificial Jurdicial Person">Artificial Jurdicial Person</option>
+                  <option value="Association of Persons (AOP)">Association of Persons (AOP)</option>
+                  <option value="Firm/LLP">Firm/LLP</option>
+                  <option value="Co-op-Society">Co-op-Society</option>
+                  <option value="MNC">MNC</option>
+                </select>
+              </div>
+
+              <!-- Remarks -->
+              <div class="col-12">
+                <label class="form-label">Remarks</label>
+                <textarea name="task_remarks"
+                  class="form-control"
+                  rows="3"></textarea>
+              </div>
+
+              <div class="modal-header">
+          <h5 class="modal-title">New Contractor Registration</h5>
+<!--          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>-->
+        </div>
+
+        <div class="modal-body">
+          <div class="row g-3">
+
+            <!-- ================= BASIC DETAILS ================= -->
+            <h6 class="text-primary mt-2">Contractor Basic Details</h6>
+
+            <div class="col-md-4">
+              <label class="form-label">Contractor Name *</label>
+              <input type="text" name="contractor_name" class="form-control" required>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Mobile *</label>
+              <input type="text" name="contractor_mobile" class="form-control" required>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Email</label>
+              <input type="email" name="contractor_email" class="form-control">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Billing Name *</label>
+              <input type="text" name="billing_name" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Deals In</label>
+              <input type="text" name="deals_in" class="form-control">
+            </div>
+
+            <!-- ================= ADDRESS ================= -->
+            <h6 class="text-primary mt-4">Address Details</h6>
+
+            <div class="col-12">
+              <label class="form-label">Registered Address *</label>
+              <textarea name="registered_address" class="form-control" rows="2" required></textarea>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Permanent Established Address (For NRI)</label>
+              <textarea name="permanent_address_nri" class="form-control" rows="2"></textarea>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Billing Address</label>
+              <textarea name="billing_address" class="form-control" rows="2"></textarea>
+            </div>
+
+            <!-- ================= CONTACT PERSONS ================= -->
+            <h6 class="text-primary mt-4">Contact Persons</h6>
+
+            <!-- Sales -->
+            <div class="col-md-4">
+              <label class="form-label">Sales Contact Name</label>
+              <input type="text" name="sales_contact_name" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Sales Mobile</label>
+              <input type="text" name="sales_contact_mobile" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Sales Email</label>
+              <input type="email" name="sales_contact_email" class="form-control">
+            </div>
+
+            <!-- Operation -->
+            <div class="col-md-4">
+              <label class="form-label">Operation Contact Name</label>
+              <input type="text" name="operation_contact_name" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Operation Mobile</label>
+              <input type="text" name="operation_contact_mobile" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Operation Email</label>
+              <input type="email" name="operation_contact_email" class="form-control">
+            </div>
+
+            <!-- Accounts -->
+            <div class="col-md-4">
+              <label class="form-label">Accounts Contact Name</label>
+              <input type="text" name="accounts_contact_name" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Accounts Mobile</label>
+              <input type="text" name="accounts_contact_mobile" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Accounts Email</label>
+              <input type="email" name="accounts_contact_email" class="form-control">
+            </div>
+
+            <!-- ================= STATUTORY ================= -->
+                        <h6 class="text-primary mt-4">Statutory Details</h6>
+
+            <div class="col-md-4">
+              <label class="form-label">Referred By</label>
+              <input type="text" name="referred_by" class="form-control">
+            </div>
+
+<!--            <div class="col-md-4">-->
+<!--              <label class="form-label">PAN No *</label>-->
+<!--              <input type="text" name="pan_no" class="form-control" required>-->
+<!--            </div>-->
+
+
+<!--              <div class="col-md-4">-->
+<!--                <label class="form-label">Attachment 3 - PAN Scan Copy</label>-->
+<!--                <input type="file" name="attachment3" class="form-control">-->
+<!--              </div>-->
+
+             <!-- PAN -->
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="form-label">PAN No *</label>
+                  <select class="form-select" name="pan_status" id="pan_status" required>
+                    <option value="">Select</option>
+                    <option value="NA">NA</option>
+                    <option value="YES">Provide PAN</option>
+                  </select>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">PAN Number</label>
+                  <input type="text" name="pan_no" id="pan_no" class="form-control" disabled>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">PAN Attachment</label>
+                  <input type="file" name="attachment3" id="attachment3" class="form-control" disabled>
+                </div>
+
+            <div class="col-md-4">
+              <label class="form-label">TAN No</label>
+              <input type="text" name="tan_no" class="form-control">
+            </div>
+
+<!--            <div class="col-md-4">-->
+<!--              <label class="form-label">MSME No</label>-->
+<!--              <input type="text" name="msme_no" class="form-control">-->
+<!--            </div>-->
+
+
+<!--              <div class="col-md-4">-->
+<!--                <label class="form-label">Attachment 2 - MSME Certificate</label>-->
+<!--                <input type="file" name="attachment2" class="form-control">-->
+<!--              </div>-->
+                <!-- MSME -->
+                <div class="col-md-4">
+                  <label class="form-label">MSME *</label>
+                  <select class="form-select" name="msme_status" id="msme_status" required>
+                    <option value="">Select</option>
+                    <option value="NA">NA</option>
+                    <option value="YES">Provide MSME</option>
+                  </select>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">MSME Number</label>
+                  <input type="text" name="msme_no" id="msme_no" class="form-control" disabled>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">MSME Attachment</label>
+                  <input type="file" name="attachment2" id="attachment2" class="form-control" disabled>
+                </div>
+              </div>
+
+            <!-- GST -->
+            <div class="col-md-4">
+              <label class="form-label">GST *</label>
+              <select class="form-select" name="gst_status" id="gst_status" required>
+                <option value="">Select</option>
+                <option value="NA">NA</option>
+                <option value="YES">Provide GST</option>
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">GST Number</label>
+              <input type="text" name="gst_no" id="gst_no" class="form-control" disabled>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">GST Attachment</label>
+              <input type="file" name="attachment1" id="attachment1" class="form-control" disabled>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">PF Registration No</label>
+              <input type="text" name="pf_registration_no" class="form-control">
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">ESIC Registration No</label>
+              <input type="text" name="esic_registration_no" class="form-control">
+            </div>
+
+            <!-- ================= BANK DETAILS ================= -->
+            <h6 class="text-primary mt-4">Bank Details *</h6>
+
+            <div class="col-md-4">
+              <label class="form-label">Bank Name *</label>
+              <input type="text" name="bank_name" class="form-control" required>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Branch *</label>
+              <input type="text" name="branch_name" class="form-control" required>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Account Name *</label>
+              <input type="text" name="account_name" class="form-control" required>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Account Type *</label>
+                <select name="account_type" class="form-select" required>
+                  <option value="">Select…</option>
+                  <option value="Current">Current</option>
+                  <option value="Saving">Saving</option>
+
+                </select>
+              </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Account Number *</label>
+              <input type="text" name="account_number" class="form-control" required>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">IFSC Code *</label>
+              <input type="text" name="ifsc_code" class="form-control" required>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Swift Code (For NRI)</label>
+              <input type="text" name="swift_code" class="form-control">
+            </div>
+
+            <!-- ================= FILES ================= -->
+            <h6 class="text-primary mt-4">Documents</h6>
+
+            <div class="row">
+  <div class="col-md-6">
+    <label class="form-label">Cancelled Cheque / Bank Passbook *</label>
+    <input type="file" class="form-control" name="cancelled_cheque" required>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-12">
+    <div class="form-check declaration-box">
+      <input type="checkbox"
+             name="declaration_agreed"
+             class="form-check-input"
+             required>
+
+      <label class="form-check-label w-100">
+        <strong>DECLARATION / घोषणा / ঘোষণা *</strong><br><br>
+
+        We do hereby declare that the above information furnished by us is true and
+        correct to the best of our knowledge and belief. Any change in the above
+        information shall be intimated to you immediately.<br><br>
+
+        In case any or all of the above information is found to be incorrect, false,
+        or misleading, or if any change is not intimated in a timely manner, we shall
+        not hold <strong>ALCOVE REALTY</strong> and/or its Constituent Entities and/or
+        any part thereof responsible for any loss or damage caused.
+      </label>
+    </div>
+  </div>
+</div>
+
+
+
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Submit P1</button>
+            <button type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+
+<script>
+function handleToggle(statusId, numberId, fileId) {
+  const status = document.getElementById(statusId);
+  const number = document.getElementById(numberId);
+  const file = document.getElementById(fileId);
+
+  status.addEventListener("change", function () {
+    if (this.value === "YES") {
+      number.disabled = false;
+      file.disabled = false;
+      number.required = true;
+      file.required = true;
+    } else {
+      number.disabled = true;
+      file.disabled = true;
+      number.required = false;
+      file.required = false;
+      number.value = "";
+      file.value = "";
+    }
+  });
+}
+
+handleToggle("pan_status", "pan_no", "attachment3");
+handleToggle("gst_status", "gst_no", "attachment1");
+handleToggle("msme_status", "msme_no", "attachment2");
+
+document.getElementById("contractorForm").addEventListener("submit", function (e) {
+  const fields = ["pan_status", "gst_status", "msme_status"];
+  for (let id of fields) {
+    if (!document.getElementById(id).value) {
+      alert("Please select NA or Provide option for PAN, GST, and MSME");
+      e.preventDefault();
+      return;
+    }
+  }
+});
+</script>
+
+
+  <script>
+  $(function(){
+    // init DataTable
+    const table = $('#p1Table').DataTable({
+      responsive: true,
+      order: [[0,'desc']]
+    });
+
+    // init Select2
+    $('#idFilter, #locationFilter, #statusFilter').select2({
+      width:'100%', placeholder:'—'
+    });
+
+    // after your other select2 inits…
+    $('#budgetHeadSelect').select2({
+      placeholder: $('#budgetHeadSelect').data('placeholder'),
+      width: '100%',
+      dropdownParent: $('#newProposalModal')  // ensure the dropdown stays inside the modal
+    });
+
+
+    // populate filters
+    function populateFilter(colIndex, sel){
+      let vals = new Set();
+      table.column(colIndex).data().each(v => vals.add(v));
+      vals.forEach(v => sel.append(new Option(v,v)));
+    }
+    populateFilter(0, $('#idFilter'));
+    populateFilter(2, $('#locationFilter'));
+    populateFilter(8, $('#statusFilter'));
+
+    // apply filters
+    $('#idFilter').on('change', ()=> table.column(0)
+      .search($('#idFilter').val().join('|'), true,false).draw());
+    $('#locationFilter').on('change', ()=> table.column(2)
+      .search($('#locationFilter').val().join('|'), true,false).draw());
+    $('#statusFilter').on('change', ()=> table.column(8)
+      .search($('#statusFilter').val().join('|'), true,false).draw());
+
+    // datepickers (DD/MM/YYYY)
+    $('#plannedStart, #plannedEnd').datepicker({ dateFormat:'dd/mm/yy' });
+
+    // range‐filter logic
+    $.fn.dataTable.ext.search.push((settings, data) => {
+      let start = $('#plannedStart').datepicker('getDate'),
+          end   = $('#plannedEnd').datepicker('getDate'),
+          parts = data[7].split(' ')[0].split('/'),
+          date  = new Date(parts[2], parts[1]-1, parts[0]);
+      if ((!start && !end) || !date) return true;
+      if (start && date < start) return false;
+      if (end   && date > end)   return false;
+      return true;
+    });
+    $('#plannedStart, #plannedEnd').on('change', ()=> table.draw());
+
+    // clear all
+    $('#clearFilters').on('click', ()=>{
+      $('#idFilter,#locationFilter,#statusFilter').val(null).trigger('change');
+      $('#plannedStart,#plannedEnd').val('');
+      table.search('').columns().search('').draw();
+    });
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!-- templates/fms_new_format_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Doer Dashboard - FMS New Contractor Registration</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <!-- Tom Select -->
+  <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+
+<style>
+  /* ================= GLOBAL ================= */
+
+body{
+    background:#eef2f7;
+    font-family:"Segoe UI",sans-serif;
+    color:#1f2937;
+    font-size:14px;
+}
+
+/* ================= HEADER ================= */
+
+h4{
+    font-weight:700;
+    color:#0b2545;
+    letter-spacing:.3px;
+    font-size:24px;
+}
+
+h5{
+    font-size:14px;
+    font-weight:600;
+}
+
+/* ================= CARD ================= */
+
+.card{
+    border:none !important;
+    border-radius:18px;
+    background:#ffffff;
+    box-shadow:0 6px 24px rgba(15,23,42,.08);
+}
+
+.card-body{
+    padding:18px !important;
+}
+
+/* ================= FILTER SECTION ================= */
+
+.card-body .row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 12px;
+    align-items:flex-end;
+    margin:0 !important;
+}
+
+/* EACH FILTER */ For FILTER SIZE
+
+.card-body .row > .col{
+    flex:0 0 calc(15% - 10px);
+    min-width:160px;
+    padding-left:0 !important;
+    padding-right:0 !important;
+}
+
+/* ================= FILTER LABEL ================= */
+
+.filter-label{
+    font-size:13px;
+    font-weight:700;
+    color:#475569;
+    margin-bottom:5px;
+    display:block;
+    padding-left:2px;
+    letter-spacing:.2px;
+}
+
+/* ================= INPUTS ================= */
+
+.form-control,
+.ts-wrapper.single .ts-control,
+.ts-control{
+    min-height:38px !important;
+    height:38px !important;
+    border-radius:10px !important;
+    border:1px solid #dbe3ec !important;
+    background:#fff !important;
+    font-size:14px !important;
+    transition:all .2s ease;
+    box-shadow:none !important;
+}
+
+.form-control:focus,
+.ts-control:focus-within{
+    border-color:#0d6efd !important;
+    box-shadow:0 0 0 2px rgba(13,110,253,.12) !important;
+}
+
+/* ================= TOM SELECT ================= */
+
+.ts-control{
+    padding:2px 8px !important;
+}
+
+.ts-wrapper.multi .ts-control > div{
+    background:#0d6efd !important;
+    color:#fff !important;
+    border-radius:6px !important;
+    padding:1px 6px !important;
+    font-size:10px !important;
+    margin:2px;
+}
+
+.ts-dropdown{
+    border-radius:12px !important;
+    border:1px solid #dbe3ec !important;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.ts-dropdown .option{
+    padding:10px 12px;
+    font-size:11px;
+}
+
+.ts-dropdown .active{
+    background:#0d6efd !important;
+    color:#fff !important;
+}
+/* DROPDOWN LIST FONT SIZE */
+
+.ts-dropdown .option{
+    font-size:15px !important;
+    line-height:1.6 !important;
+    padding:10px 12px !important;
+}
+
+/* SELECTED ITEMS INSIDE BOX */
+.ts-wrapper.multi .ts-control > div{
+    font-size:13px !important;
+}
+
+/* SEARCH INPUT */
+.ts-control input{
+    font-size:14px !important;
+}
+
+/* PLACEHOLDER */
+.ts-control{
+    font-size:14px !important;
+}
+
+/* ================= DATE INPUT ================= */
+
+.compact-date{
+    width:100% !important;
+    min-width:140px;
+}
+
+/* ================= BUTTONS ================= */
+
+.btn{
+    border-radius:10px;
+    font-size:11px !important;
+    font-weight:600;
+    padding:6px 12px !important;
+    transition:all .2s ease;
+    border:none;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+}
+
+.btn-primary{
+    background:#0d6efd;
+}
+
+.btn-success{
+    background:#198754;
+}
+
+.btn-danger{
+    background:#dc3545;
+}
+
+.btn-warning{
+    background:#ffc107;
+}
+
+.btn-outline-primary,
+.btn-outline-success{
+    border-width:1px !important;
+    font-weight:600;
+}
+
+/* ================= FILTER HEADING ================= */
+
+.card-body h6{
+    font-size:14px;
+    font-weight:700;
+}
+
+/* ================= TABLE CONTAINER ================= */
+
+.table-container{
+    background:#ffffff;
+    border-radius:18px;
+    overflow:auto;
+    max-height:75vh;
+    box-shadow:0 6px 24px rgba(15,23,42,.08);
+    border:1px solid #e5e7eb;
+    padding:0 !important;
+}
+
+/* ================= TABLE ================= */
+
+.table{
+    margin-bottom:0;
+    font-size:12px;
+    vertical-align:middle;
+    white-space:nowrap;
+}
+
+/* CHANGE 1: Added border to table header */
+.table thead th{
+    position:sticky;
+    top:0;
+    z-index:5;
+    background:#0b2545 !important;
+    color:#fff !important;
+    border:1px solid #1e3a5f !important;
+    padding:12px 10px !important;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+}
+
+/* CHANGE 2: Increased table body font size from 11px to 13px */
+.table tbody td{
+    padding:10px 8px !important;
+    border-color:#edf2f7 !important;
+    color:#334155;
+    background:#fff;
+    font-size:15px;
+}
+
+.table tbody tr{
+    transition:all .15s ease;
+}
+
+.table-hover tbody tr:hover{
+    background:#f8fbff !important;
+}
+
+.table-hover tbody tr:hover td{
+    background:#f8fbff !important;
+}
+
+/* ================= TEXT WRAP ================= */
+
+.wrap-text{
+    white-space:normal !important;
+    word-break:break-word;
+    line-height:1.4;
+    min-width:160px;
+    max-width:280px;
+}
+
+/* ================= BADGES ================= */
+
+.badge{
+    padding:6px 9px;
+    border-radius:999px;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.3px;
+}
+
+/* ================= CHECKBOX ================= */
+
+.rowCheckbox,
+#selectAll{
+    width:15px;
+    height:15px;
+    cursor:pointer;
+}
+
+/* ================= MODAL ================= */
+
+.modal-content{
+    border:none;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,.18);
+}
+
+.modal-header{
+    background:#0b2545;
+    color:#fff;
+    border:none;
+    padding:16px 20px;
+}
+
+.modal-title{
+    font-size:16px;
+    font-weight:700;
+}
+
+.modal-body{
+    padding:20px;
+    background:#f8fafc;
+}
+
+.modal-footer{
+    border:none;
+    padding:16px 20px;
+    background:#fff;
+}
+
+/* ================= MODAL TABLE ================= */
+
+.modal-body table{
+    background:#fff;
+    border-radius:14px;
+    overflow:hidden;
+}
+
+.modal-body th{
+    background:#f1f5f9;
+    width:30%;
+    font-size:12px;
+    color:#0f172a;
+}
+
+.modal-body td{
+    font-size:12px;
+    color:#334155;
+}
+
+.table thead th:nth-child(1){
+    position: sticky;
+    left: 0;
+    z-index: 20;
+    width: 90px !important;
+    min-width: 90px !important;
+    max-width: 90px !important;
+    background: #0b2545 !important;
+    border-right: 1px solid #1e3a5f !important;
+}
+
+.table tbody td:nth-child(1){
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    width: 90px !important;
+    min-width: 90px !important;
+    max-width: 90px !important;
+    background: #fff !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+}
+
+/* HOVER */
+.table-hover tbody tr:hover td:nth-child(1),
+.table-hover tbody tr:hover td:nth-child(2){
+    background:#f8fbff !important;
+}
+/* ================= SCROLLBAR ================= */
+
+::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:#e2e8f0;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#94a3b8;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#64748b;
+}
+/* =========================================================
+   CREATE TASK MODAL - SCROLLING
+   ========================================================= */
+
+#createTaskModal .create-task-dialog {
+    max-height: 95vh;
+}
+
+#createTaskModal .create-task-modal {
+    max-height: 95vh;
+}
+
+#createTaskModal .modal-body {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    max-height: calc(95vh - 130px) !important;
+    padding: 20px !important;
+}
+
+/* Visible scrollbar inside Create Task form */
+#createTaskModal .modal-body::-webkit-scrollbar {
+    width: 10px;
+}
+
+#createTaskModal .modal-body::-webkit-scrollbar-track {
+    background: #e2e8f0;
+    border-radius: 10px;
+}
+
+#createTaskModal .modal-body::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 10px;
+}
+
+#createTaskModal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+
+/* =========================================================
+   CONTRACTOR CATEGORY - TOM SELECT
+   ========================================================= */
+
+#createTaskModal .ts-wrapper {
+    width: 100% !important;
+}
+
+#createTaskModal .ts-control {
+    min-height: 42px !important;
+    height: auto !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 8px !important;
+    background: #fff !important;
+    padding: 6px 10px !important;
+}
+
+#createTaskModal .ts-control input {
+    font-size: 14px !important;
+    min-width: 120px !important;
+}
+
+#createTaskModal .ts-dropdown {
+    z-index: 2000 !important;
+    max-height: 300px !important;
+}
+
+#createTaskModal .ts-dropdown .option {
+    font-size: 14px !important;
+    padding: 9px 12px !important;
+}
+
+#createTaskModal .ts-wrapper.multi .ts-control > div {
+    font-size: 13px !important;
+    padding: 3px 7px !important;
+    margin: 2px !important;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width:1200px){
+
+    .card-body .row > .col{
+        flex:0 0 calc(25% - 10px);
+    }
+}
+
+@media (max-width:992px){
+
+    .card-body .row > .col{
+        flex:0 0 calc(33.33% - 10px);
+    }
+}
+
+@media (max-width:768px){
+
+    .container-fluid{
+        padding-left:10px !important;
+        padding-right:10px !important;
+    }
+
+    .card-body{
+        padding:14px !important;
+    }
+
+    .card-body .row > .col{
+        flex:0 0 calc(50% - 10px);
+    }
+
+    .btn{
+        width:100%;
+    }
+
+    .d-flex.flex-wrap{
+        gap:8px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!--&lt;!&ndash; ================= UI CONFIG ================= &ndash;&gt;-->
+<!--<script>-->
+<!--  const STEP_UI_CONFIG_fms_new_format = {{ STEP_UI_CONFIG_fms_new_format | tojson }};-->
+<!--</script>-->
+
+
+<!-- ================= UI CONFIG ================= -->
+<script>
+  const STEP_UI_CONFIG_fms_new_format = {{ STEP_UI_CONFIG_fms_new_format | tojson }};
+  const ALLOCATION_MAP_fms_new_format = {{ ALLOCATION_MAP_fms_new_format | tojson }};
+</script>
+
+<div class="container-fluid mt-3 px-3">
+
+  <!-- ================= HEADER ================= -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>📋 FMS NEW CONTRACTOR REGISTRATION </h4>
+    <div class="d-flex align-items-center gap-2 data">
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-5">
+      {% if can_create_task %}
+     <button class="btn btn-success btn-sm px-3"
+        data-bs-toggle="modal"
+        data-bs-target="#createTaskModal">
+        <i class="bi bi-plus-circle"></i>
+        Create Task
+     </button>
+      {% endif %}
+  </div>
+      <a href="{{ url_for('dashboard') }}"
+     class="btn btn-outline-dark btn-sm">
+     <i class="bi bi-arrow-left-circle"></i> Dashboard
+      </a>
+      <h5 class="text-secondary mb-0">Welcome, {{ name }}</h5>
+
+
+<!--      <a href="https://docs.google.com/drawings/d/1LtOgcpMk-szPqZd-tB_QH600MOoaSCRBUCkdfa5DavQ/edit"-->
+<!--         target="_blank" class="btn btn-outline-danger btn-sm">📍 Flow Chart</a>-->
+
+      <div class="dropdown">
+        <button class="btn btn-outline-danger btn-sm dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+          📍 Flow Chart
+        </button>
+
+        <ul class="dropdown-menu">
+
+          <li>
+            <a class="dropdown-item"
+               href="https://docs.google.com/drawings/d/1gmbfmKKNn3Zscl2pSjAYRnA9tM7LpkGWaAkTkYN4eog/edit"
+               target="_blank">
+               FMS NEW CONTRACTOR REGISTRATION
+            </a>
+          </li>
+
+<!--          <li>-->
+<!--            <a class="dropdown-item"-->
+<!--               href="https://docs.google.com/drawings/d/1cwg9-OnppKDx3t0CQpr5PuJOs6Szf1oIOqClEBL4DRQ/edit"-->
+<!--               target="_blank">-->
+<!--               Rate Approval-->
+<!--            </a>-->
+<!--          </li>-->
+
+<!--          <li>-->
+<!--            <a class="dropdown-item"-->
+<!--               href="https://docs.google.com/drawings/d/1dCVZtl7r_VMJaO3tNHqZiN95S7IU4vC9GmiTIhdGAK0/edit"-->
+<!--               target="_blank">-->
+<!--               Po to Delivery-->
+<!--            </a>-->
+<!--          </li>-->
+
+<!--          <li>-->
+<!--            <a class="dropdown-item"-->
+<!--               href="https://docs.google.com/drawings/d/1qAGVA2qnNl2H2ofP68rB3NnRqSQDjia_c9bMPJTWT_g/edit"-->
+<!--               target="_blank">-->
+<!--               Po Rectification-->
+<!--            </a>-->
+<!--          </li>-->
+
+<!--          <li>-->
+<!--            <a class="dropdown-item"-->
+<!--               href="https://docs.google.com/drawings/d/1qS3niSNZhcU2K7cQ-yKe5g5IhNcWOR-D9BBQ9OZYQ1g/edit"-->
+<!--               target="_blank">-->
+<!--               Po Cancellation-->
+<!--            </a>-->
+<!--          </li>-->
+
+        </ul>
+      </div>
+
+      <a href="https://www.youtube.com/watch?v=_6aVDyxbeFI"
+         target="_blank" class="btn btn-outline-success btn-sm">Tutorial Video</a>
+      <span class="badge bg-danger fs-6">
+        Pending: {{ pending_count }}
+      </span>
+      </div>
+    </div>
+  </div>
+
+    <!-- ================= FILTERS ================= -->
+    <div class="card shadow-sm border-0 mb-2">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h6 class="mb-0 fw-bold text-secondary">
+            <i class="bi bi-funnel"></i> Filters
+          </h6>
+
+          <!-- RIGHT SIDE BUTTONS -->
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-5">
+
+<!--    <button class="btn btn-primary btn-sm px-3 "-->
+<!--            onclick="handleBulkSubmit()">-->
+<!--        <i class="bi bi-check2-circle"></i>-->
+<!--        Submit-->
+<!--    </button>-->
+
+
+</div>
+        </div>
+
+        <div class="row">
+  <div class="col">
+    <label class="filter-label">Task ID</label>
+    <select id="filterTaskId" class="form-select filter-select" multiple>
+      {% for tid in task_ids %}
+      <option value="{{ tid }}">{{ tid }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+<div class="col">
+  <label class="filter-label">Task Name</label>
+  <select id="filterTaskName" class="form-select filter-select" multiple>
+    {% for v in task_names %}
+    <option value="{{ v }}">{{ v }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+  <div class="col">
+    <label class="filter-label">Project</label>
+    <select id="filterProject" class="form-select filter-select" multiple>
+      {% for p in projects %}
+      <option value="{{ p }}">{{ p }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col">
+    <label class="filter-label">Step</label>
+    <select id="filterStep" class="form-select filter-select" multiple>
+      {% for step in steps %}
+      <option value="{{ step }}">{{ step }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col">
+    <label class="filter-label">From</label>
+    <input type="date" id="startDate" class="form-control compact-date">
+  </div>
+
+  <div class="col">
+    <label class="filter-label">To</label>
+    <input type="date" id="endDate" class="form-control compact-date">
+  </div>
+
+</div>
+
+        </div>
+      </div>
+    </div>
+  <!-- ================= TABLE ================= -->
+  <div class="table-container p-3">
+    <table class="table table-bordered table-hover align-middle">
+
+      <thead>
+        <tr>
+<!--          <th class="text-center">-->
+<!--          <input type="checkbox" id="selectAll">-->
+<!--          </th>-->
+          <th class="text-center">Task ID</th>
+          <th>Task Name</th>
+          <th>Step Task Details</th>
+          <th>Project</th>
+          <th class="text-center">Step</th>
+          <th class="text-center">From Step</th>
+          <th class="text-center">Planned Dt</th>
+<!--          <th class="text-center">Attachment</th>-->
+<!--          <th class="text-center">Remarks</th>-->
+          <th class="text-center">Status</th>
+          <th class="text-center">Task Details</th>
+          <th class="text-center">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for task in tasks %}
+
+<!--        {% set action_id = (task.parallel_id if task.source_db == 'PAR' else task.task_id) %}-->
+
+        <tr>
+<!--          <td class="text-center">-->
+<!--          <input type="checkbox" class="rowCheckbox"-->
+<!--            data-task-id="{{ task.task_id }}"-->
+<!--            data-step="{{ task.current_stage }}">-->
+<!--          </td>-->
+          <td class="text-center">{{ task.task_id }}</td>
+          <td class="wrap-text">{{ task.task_name or '—' }}</td>
+          <td class="wrap-text">{{ task.task_details }}</td>
+          <td>{{ task.project or '—' }}</td>
+          <td class="text-center">{{ task.current_stage }}</td>
+          <td class="text-center">
+            {{ task.last_from_stage or task.from_stage or '—' }}
+          </td>
+
+          <td class="text-center">
+            {% if task.planned_end_time %}
+              {{ task.planned_end_time.strftime('%d/%m/%Y %H:%M') }}
+            {% else %} — {% endif %}
+          </td>
+
+<!--          <td class="text-center">-->
+<!--            {% set att = task.last_attachment or task.task_attachment %}-->
+<!--            {% if att %}-->
+<!--              {% if att.startswith('http') %}-->
+<!--                <a href="{{ att }}" target="_blank">View</a>-->
+<!--              {% else %}-->
+<!--                <a href="{{ url_for('static', filename='boq_est_uploads/' + att) }}" target="_blank">View</a>-->
+<!--              {% endif %}-->
+<!--            {% else %} — {% endif %}-->
+<!--          </td>-->
+
+<!--          <td>{{ task.last_remark or task.task_remark or '—' }}</td>-->
+
+          <td class="text-center">
+            {% if task.status == 'Completed' %}
+              <span class="badge bg-success">Completed</span>
+            {% else %}
+              <span class="badge bg-warning text-dark">Pending</span>
+            {% endif %}
+          </td>
+          <!-- TASK DETAILS COLUMN (VIEW BUTTON) -->
+          <td class="text-center">
+          <button class="btn btn-sm btn-outline-primary"
+          onclick="openViewModal({{ task.task_id }})">
+          View
+          </button>
+          </td>
+
+          <!-- ACTION COLUMN (SUBMIT BUTTON ONLY) -->
+          <td class="text-center">
+          <button class="btn btn-sm btn-outline-success"
+          data-bs-toggle="modal"
+          data-bs-target="#submitModal-{{ task.source_db }}-{{ action_id }}">
+          Submit
+          </button>
+          </td>
+        </tr>
+
+
+        <!-- =================SUBMIT MODAL ================= -->
+        <div class="modal fade"
+             id="submitModal-{{ task.source_db }}-{{ action_id }}"
+             data-bs-backdrop="static">
+
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+
+              <form method="POST"
+              action="{{ url_for('complete_task_fms_new_format', task_id=task.task_id) }}"
+              enctype="multipart/form-data"
+              onsubmit="return disableSubmitButton(this)">
+
+                <div class="modal-header">
+                  <h5 class="modal-title">
+                    Submit Task - {{ task.task_name }} ({{ task.current_stage }})
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                  <!-- REMARK -->
+                  {% set r_vis = STEP_UI_CONFIG_fms_new_format.remark.visible == "ALL" or task.current_stage in STEP_UI_CONFIG_fms_new_format.remark.visible %}
+                  {% if r_vis %}
+                  <div class="mb-3">
+                    <label>Remark</label>
+                    <input type="text" name="remark" class="form-control"
+                      {% if STEP_UI_CONFIG_fms_new_format.remark.mandatory == "ALL" or task.current_stage in STEP_UI_CONFIG_fms_new_format.remark.mandatory %} required {% endif %}>
+                  </div>
+                  {% endif %}
+
+                  <!-- ATTACHMENT -->
+                  {% set a_vis = task.current_stage in STEP_UI_CONFIG_fms_new_format.attachment.visible %}
+                  {% if a_vis %}
+                  <div class="mb-3">
+                    <label>Attachment</label>
+                    <input type="file" name="attachment" class="form-control"
+                      {% if task.current_stage in STEP_UI_CONFIG_fms_new_format.attachment.mandatory %} required {% endif %}>
+                  </div>
+                  {% endif %}
+
+                  <!-- DECISION -->
+                  {% set d_vis = task.current_stage in STEP_UI_CONFIG_fms_new_format.decision.visible %}
+                  {% if d_vis %}
+                  <div class="mb-3">
+                    <label>Decision</label>
+                    <select name="decision" class="form-select"
+                      {% if task.current_stage in STEP_UI_CONFIG_fms_new_format.decision.mandatory %} required {% endif %}>
+                      <option value="">--Select--</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  {% endif %}
+                  <!-- ================= ALLOCATION ================= -->
+                  {% if task.current_stage in ['P0'] %}
+                  <div class="mb-3">
+                    <label>Allocation</label>
+                    <select name="allocation" class="form-select"
+                      {% if task.current_stage in ['P0'] %} required {% endif %}>
+                      <option value="">--Select--</option>
+
+                        {% for i in ALLOCATION_MAP_fms_new_format%}
+                      <option value="{{i}}">{{i}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  {% endif %}
+
+               <!-- ================= MODIFIED QTY ================= -->
+                {% if task.current_stage in ['P0'] %}
+                <div class="mb-3">
+                  <label>BOQ Value</label>
+                  <input type="number" name="boq_value" class="form-control" min="0" step="any"
+                    {% if task.current_stage in ['TMP2', 'BP5'] %} required {% endif %}>
+                </div>
+                {% endif %}
+
+
+                 {% if task.current_stage in ['P0'] %}
+                <div class="mb-3">
+                    <label>No of BOQ Line Items</label>
+                    <input type="number"
+                           name="boq_line"
+                           class="form-control"
+                           min="0"
+                           step="1"
+                           required>
+                </div>
+                {% endif %}
+                </div>
+
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-success">Submit Task</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+<!-- ================= VIEW MODAL ================= -->
+<div class="modal fade" id="viewTaskModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Task Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body" id="taskDetailsContainer">
+        <!-- DATA WILL LOAD HERE -->
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-danger" onclick="downloadPDF()">Download PDF</button>
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+<!-- ================= Bulk Submit Modal ================= -->
+<div class="modal fade" id="bulkModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+<!--      <form id="bulkForm" method="POST" enctype="multipart/form-data">-->
+        <form id="bulkForm" method="POST" enctype="multipart/form-data"
+          onsubmit="disableSubmitButton(this)">
+
+        <div class="modal-header">
+          <h5 class="modal-title">Bulk Submit</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body" id="bulkFormBody">
+          <!-- dynamic form fields -->
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Submit All</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================= CREATE TASK MODAL ================= -->
+
+<div class="modal fade"
+     id="createTaskModal"
+     tabindex="-1"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <form method="POST"
+                  action="{{ url_for('create_task_fms_new_format') }}"
+                  enctype="multipart/form-data"
+                  id="createTaskForm">
+
+                <!-- HEADER -->
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+                        Create Task
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                    </button>
+
+                </div>
+
+                <!-- BODY -->
+                <div class="modal-body">
+
+                    <!-- ================= TASK ================= -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Task
+                        </label>
+
+                        <input type="text"
+                               name="task_name"
+                               class="form-control"
+                               placeholder="Enter task name">
+
+                    </div>
+
+
+                    <!-- ================= ATTACHMENT ================= -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Attachment
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <input type="file"
+                               name="attachment"
+                               class="form-control"
+                               required>
+
+                    </div>
+
+
+                    <!-- ================= REMARKS ================= -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Remarks
+                        </label>
+
+                        <textarea name="task_remarks"
+                                  class="form-control"
+                                  rows="4"
+                                  placeholder="Enter remarks"></textarea>
+
+                    </div>
+
+                </div>
+
+                <!-- FOOTER -->
+                <div class="modal-footer">
+
+                    <button type="submit"
+                            class="btn btn-success">
+                        Submit Task
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  // ================= SEARCHABLE FILTERS =================
+
+  const selects = document.querySelectorAll(".filter-select");
+
+  selects.forEach(select => {
+
+    new TomSelect(select, {
+      plugins: ['remove_button','checkbox_options'],
+      create: false,
+      hideSelected: true,
+      closeAfterSelect: false,
+      placeholder: "Search & Select",
+    });
+
+  });
+
+// =====================================================
+// CONTRACTOR CATEGORY - SEARCHABLE + MULTIPLE SELECT
+// =====================================================
+
+const contractorCategory =
+    document.getElementById("contractorCategorySelect");
+
+if (contractorCategory) {
+
+    const materialTS = new TomSelect(contractorCategory, {
+
+        plugins: [
+            "remove_button",
+            "checkbox_options"
+        ],
+
+        create: false,
+
+        maxOptions: 500,
+
+        hideSelected: false,
+
+        closeAfterSelect: false,
+
+        placeholder: "Search Contractor Category...",
+
+        searchField: [
+            "text"
+        ],
+
+        sortField: {
+            field: "text",
+            direction: "asc"
+        },
+
+        /*
+         * IMPORTANT:
+         * Put dropdown in BODY so Bootstrap modal
+         * does not clip it.
+         */
+        dropdownParent: "body"
+
+    });
+
+    // Make sure dropdown appears above Bootstrap modal
+    materialTS.dropdown.style.zIndex = "99999";
+
+}
+// ================= FILTER LOGIC =================
+
+
+  const rows = document.querySelectorAll("tbody tr");
+
+  function parseDate(text) {
+
+    if (!text) return null;
+
+    const t = text.trim().split(" ")[0];
+    const p = t.split("/");
+
+    if (p.length === 3) {
+      return new Date(p[2] + "-" + p[1] + "-" + p[0]);
+    }
+
+    return null;
+  }
+
+  function getSelectedValues(id) {
+
+    const select = document.getElementById(id);
+
+    return [...select.selectedOptions]
+      .map(o => o.value.toLowerCase());
+
+  }
+
+  function applyFilters(changedFilter = null) {
+
+  const ids = getSelectedValues("filterTaskId");
+  const taskNames = getSelectedValues("filterTaskName");
+  const projects = getSelectedValues("filterProject");
+  const steps = getSelectedValues("filterStep");
+
+  const startVal = document.getElementById("startDate").value
+    ? new Date(document.getElementById("startDate").value)
+    : null;
+
+  const endVal = document.getElementById("endDate").value
+    ? new Date(document.getElementById("endDate").value)
+    : null;
+
+  // STORE UNIQUE VALUES
+  let uniqueData = {
+    filterTaskId: new Set(),
+    filterTaskName: new Set(),
+    filterProject: new Set(),
+    filterStep: new Set()
+  };
+
+  rows.forEach(row => {
+
+    const id = row.children[0].textContent.trim();
+    const taskName = row.children[1].textContent.trim();
+    const project = row.children[3].textContent.trim();
+    const step = row.children[4].textContent.trim();
+
+    const pDate = parseDate(row.children[6].textContent);
+
+    let dateOk = true;
+
+    if (startVal && pDate) {
+      dateOk = pDate >= startVal;
+    }
+
+    if (endVal && pDate && dateOk) {
+      dateOk = pDate <= endVal;
+    }
+
+    const show =
+      (!ids.length || ids.includes(id.toLowerCase())) &&
+      (!taskNames.length || taskNames.includes(taskName.toLowerCase())) &&
+      (!projects.length || projects.includes(project.toLowerCase())) &&
+      (!steps.length || steps.includes(step.toLowerCase())) &&
+      dateOk;
+
+    row.style.display = show ? "" : "none";
+
+    // ADD ONLY VISIBLE ROW VALUES
+    if (show) {
+
+      uniqueData.filterTaskName.add(taskName);
+      uniqueData.filterProject.add(project);
+      uniqueData.filterStep.add(step);
+
+    }
+
+  });
+
+  // UPDATE DROPDOWNS
+  Object.keys(uniqueData).forEach(filterId => {
+
+    // DON'T refresh current filter
+    if (filterId === changedFilter) return;
+
+    const select = document.getElementById(filterId);
+
+    const selectedValues = [...select.selectedOptions].map(o => o.value);
+
+    select.innerHTML = "";
+
+    [...uniqueData[filterId]]
+      .sort()
+      .forEach(val => {
+
+        if (!val || val === "—") return;
+
+        const option = document.createElement("option");
+
+        option.value = val;
+        option.textContent = val;
+
+        if (selectedValues.includes(val)) {
+          option.selected = true;
+        }
+
+        select.appendChild(option);
+
+      });
+
+    // REFRESH TOMSELECT
+    if (select.tomselect) {
+
+      select.tomselect.clearOptions();
+
+      [...select.options].forEach(opt => {
+        select.tomselect.addOption({
+          value: opt.value,
+          text: opt.text
+        });
+      });
+
+      select.tomselect.refreshOptions(false);
+
+      selectedValues.forEach(v => {
+        select.tomselect.addItem(v, true);
+      });
+
+    }
+
+  });
+
+}
+
+  // LISTENERS
+  document.querySelectorAll(".filter-select").forEach(el => {
+
+  el.addEventListener("change", function () {
+
+    applyFilters(this.id);
+
+  });
+
+});
+
+  document.getElementById("startDate")
+    .addEventListener("change", applyFilters);
+
+  document.getElementById("endDate")
+    .addEventListener("change", applyFilters);
+
+});
+
+</script>
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    // =====================================================
+    // PAN
+    // =====================================================
+
+    function setupToggle(statusId, numberId, fileId) {
+
+        const status = document.getElementById(statusId);
+        const number = document.getElementById(numberId);
+        const file = document.getElementById(fileId);
+
+        if (!status || !number || !file) {
+            return;
+        }
+
+        function updateFields() {
+
+            if (status.value === "YES") {
+
+                number.disabled = false;
+                file.disabled = false;
+
+                number.required = true;
+                file.required = true;
+
+            } else {
+
+                number.disabled = true;
+                file.disabled = true;
+
+                number.required = false;
+                file.required = false;
+
+                number.value = "";
+                file.value = "";
+
+            }
+
+        }
+
+        status.addEventListener("change", updateFields);
+
+        updateFields();
+    }
+
+
+    setupToggle(
+        "pan_ref",
+        "pan_number",
+        "pan_attachment"
+    );
+
+
+    setupToggle(
+        "msme_ref",
+        "msme_number",
+        "msme_attachment"
+    );
+
+
+    setupToggle(
+        "gst_status",
+        "gst_number",
+        "gst_attachment"
+    );
+
+
+    // =====================================================
+    // FORM VALIDATION
+    // =====================================================
+
+    const contractorForm =
+        document.getElementById("contractorForm");
+
+    if (contractorForm) {
+
+        contractorForm.addEventListener("submit", function (event) {
+
+            const pan =
+                document.getElementById("pan_ref").value;
+
+            const msme =
+                document.getElementById("msme_ref").value;
+
+            const gst =
+                document.getElementById("gst_status").value;
+
+
+            if (!pan || !msme || !gst) {
+
+                event.preventDefault();
+
+                alert(
+                    "Please select PAN, MSME and GST status."
+                );
+
+                return false;
+            }
+
+        });
+
+    }
+
+});
+
+</script>
+<script>
+
+document.getElementById("department_head")
+.addEventListener("change", function(){
+
+    const emp =
+      this.options[this.selectedIndex]
+      .getAttribute("data-emp");
+
+    document.getElementById(
+      "department_head_emp_code"
+    ).value = emp || "";
+
+});
+
+document.getElementById("qs_maker")
+.addEventListener("change", function(){
+
+    const emp =
+      this.options[this.selectedIndex]
+      .getAttribute("data-emp");
+
+    document.getElementById(
+      "qs_maker_emp_code"
+    ).value = emp || "";
+
+});
+
+document.getElementById("qs_checker")
+.addEventListener("change", function(){
+
+    const emp =
+      this.options[this.selectedIndex]
+      .getAttribute("data-emp");
+
+    document.getElementById(
+      "qs_checker_emp_code"
+    ).value = emp || "";
+
+});
+
+</script>
+<script>
+
+let currentTaskData = {};
+
+function openViewModal(taskId) {
+
+    fetch(`/get_task_details_fms_new_format/${taskId}`)
+
+        .then(res => res.json())
+
+        .then(response => {
+
+            if (!response.success) {
+                alert(response.message || "Task not found");
+                return;
+            }
+
+            const t = response.task;
+
+            currentTaskData = t;
+
+            // =====================================================
+            // FILE LINK HELPER
+            // =====================================================
+
+            function attachmentLink(filename) {
+
+                if (!filename) {
+                    return '—';
+                }
+
+                return `
+                    <a href="/static/boq_est_uploads/${filename}"
+                       target="_blank"
+                       class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-paperclip"></i>
+                        View
+                    </a>
+                `;
+            }
+
+
+            // =====================================================
+            // VALUE HELPER
+            // =====================================================
+
+            function value(data) {
+
+                if (
+                    data === null ||
+                    data === undefined ||
+                    data === ""
+                ) {
+                    return '—';
+                }
+
+                return data;
+            }
+
+
+            // =====================================================
+            // VIEW MODAL CONTENT
+            // =====================================================
+
+            let html = `
+
+                <table class="table table-bordered">
+
+                    <tr>
+                        <th>Task ID</th>
+                        <td>${value(t.task_id)}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Raiser Remarks</th>
+                        <td>${value(t.task_remarks)}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Previous Step Remarks</th>
+                        <td>${value(t.remark)}</td>
+                    </tr>
+
+                    <tr>
+                        <th>FMS Step Attachment</th>
+                        <td>
+                            ${attachmentLink(t.attachment_path)}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Raiser Attachment</th>
+                        <td>
+                            ${attachmentLink(t.tg_attachment_path)}
+                        </td>
+                    </tr>
+
+                </table>
+
+            `;
+
+
+            // =====================================================
+            // PUT CONTENT INTO VIEW MODAL
+            // =====================================================
+
+            document.getElementById("taskDetailsContainer").innerHTML = html;
+
+
+            // =====================================================
+            // OPEN MODAL
+            // =====================================================
+
+            const modalElement =
+                document.getElementById("viewTaskModal");
+
+            const modal =
+                bootstrap.Modal.getOrCreateInstance(modalElement);
+
+            modal.show();
+
+        })
+
+        .catch(error => {
+
+            console.error("View task error:", error);
+
+            alert("Unable to load task details.");
+
+        });
+
+}
+
+</script>
+<!-- ================= View Modal PDF SCRIPT ================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function downloadPDF() {
+
+  const element = document.getElementById("taskDetailsContainer");
+
+  const opt = {
+    margin: 0.5,
+    filename: `Task_${currentTaskData.task_id}.pdf`,
+    image: { type: 'jpeg', quality: 1 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(element).save();
+}
+</script>
+<script>
+function disableSubmitButton(form) {
+
+  const btn = form.querySelector("button[type='submit']");
+
+  // 🚫 If already clicked → block immediately
+  if (btn.disabled) return false;
+
+  // 🚫 If already submitted → block
+  if (form.dataset.submitted === "true") return false;
+
+  // ✅ Mark as submitted instantly
+  form.dataset.submitted = "true";
+
+  // ✅ Disable button instantly (this stops ultra-fast double clicks)
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Submitting...`;
+  }
+
+  return true;
+}
+function clearCreateTaskForm() {
+
+    const form = document.getElementById("createTaskForm");
+
+    // Reset normal inputs
+    form.reset();
+
+    // Clear all TomSelect selections
+    form.querySelectorAll("select").forEach(function(select){
+
+        if(select.tomselect){
+            select.tomselect.clear(true);   // only clear selected value
+        }
+
+    });
+
+    // Hide Department
+    document.getElementById("department_div").style.display = "none";
+
+    // Reset Budget Head dropdown (dynamic)
+    const budgetTS = document.getElementById("final_budget_head").tomselect;
+    budgetTS.clear();
+    budgetTS.clearOptions();
+
+    // Reset Department dropdown
+    const deptTS = document.getElementById("department").tomselect;
+    deptTS.clear();
+    deptTS.clearOptions();
+
+    // Reset QS dropdowns
+    document.getElementById("qs_maker").tomselect.clear();
+    document.getElementById("qs_checker").tomselect.clear();
+
+    // Clear hidden fields
+    document.getElementById("qs_maker_emp_code").value = "";
+    document.getElementById("qs_checker_emp_code").value = "";
+
+    budgetHeadData = [];
+}
+</script>
+<script>
+
+const LOGIN_NAME = "{{ login_name }}";
+const LOGIN_EMP_CODE = "{{ login_emp_code }}";
+
+</script>
+<script>
+
+document.getElementById("project").addEventListener("change", function () {
+
+    let project = this.value;
+
+    // Reset Department
+document.getElementById("department_div").style.display = "none";
+
+const deptTS = document.getElementById("department").tomselect;
+deptTS.clear();
+deptTS.clearOptions();
+
+    console.log("Project =", project);
+
+    fetch(`/get_final_budget_heads_fms_new_format?project=${encodeURIComponent(project)}`)
+    .then(response => response.json())
+    .then(data => {
+        budgetHeadData = data;
+
+        console.log("Data =", data);
+
+        const budgetSelect =
+                document.getElementById("final_budget_head");
+
+            const ts = budgetSelect.tomselect;
+
+            ts.clear();
+            ts.clearOptions();
+
+            data.forEach(function(row){
+
+                ts.addOption({
+                    value: row.final_budget_head_category,
+                    text: row.final_budget_head_category
+                });
+
+            });
+
+            ts.refreshOptions(false);
+
+    });
+
+});
+
+</script>
+<script>
+
+document.getElementById("final_budget_head")
+.addEventListener("change", function(){
+
+    const budgetHead = this.value;
+
+    const row = budgetHeadData.find(
+        r => r.final_budget_head_category === budgetHead
+    );
+
+    if(!row) return;
+
+// ======================
+// Department Logic
+// ======================
+
+const qsMakerValue =
+    (row.qs_maker || "").trim().toLowerCase();
+
+
+// ==================================================
+// CASE 1: QS MAKER = "department"
+// ==================================================
+
+if (qsMakerValue === "department") {
+
+    document.getElementById("department_div").style.display = "block";
+
+    const deptTS =
+        document.getElementById("department").tomselect;
+
+        const departmentSelect =
+        document.getElementById("department");
+
+    departmentSelect.required = true;
+
+    deptTS.clear();
+    deptTS.clearOptions();
+
+    const project =
+        document.getElementById("project").value;
+
+    departmentData
+        .filter(d =>
+            d.project_name === project &&
+            d.final_budget_head_category === budgetHead
+        )
+        .forEach(d => {
+
+            if (d.department) {
+
+                deptTS.addOption({
+                    value: d.department,
+                    text: d.department
+                });
+
+            }
+
+        });
+
+    deptTS.refreshOptions(false);
+
+    return;
+}
+
+
+// ==================================================
+// CASE 2: QS MAKER IS BLANK
+// ==================================================
+
+if (qsMakerValue === "") {
+
+    // Department MUST remain hidden
+    document.getElementById("department_div").style.display = "none";
+
+    const deptTS =
+        document.getElementById("department").tomselect;
+
+    deptTS.clear();
+    deptTS.clearOptions();
+
+    // Load QS Maker + QS Checker
+    // from boq_est_dropdown using project
+    const project =
+        document.getElementById("project").value;
+
+    loadQSFromBOQDropdown(project);
+
+    return;
+}
+
+
+// ==================================================
+// CASE 3: NORMAL QS MAKER
+// ==================================================
+
+document.getElementById("department_div").style.display = "none";
+
+    let qsMaker = row.qs_maker;
+    let qsMakerEmp = row.qs_maker_emp_code;
+
+    let qsChecker = row.qs_checker;
+    let qsCheckerEmp = row.qs_checker_emp_code;
+
+    // LOGIN NAME LOGIC
+
+    if (
+        qsMaker &&
+        qsMaker.toLowerCase() === "login name"
+    ){
+        qsMaker = LOGIN_NAME;
+    }
+
+    if (
+        qsMakerEmp &&
+        qsMakerEmp.toLowerCase() === "login id"
+    ){
+        qsMakerEmp = LOGIN_EMP_CODE;
+    }
+
+    if (
+        qsChecker &&
+        qsChecker.toLowerCase() === "login name"
+    ){
+        qsChecker = LOGIN_NAME;
+    }
+
+    if (
+        qsCheckerEmp &&
+        qsCheckerEmp.toLowerCase() === "login id"
+    ){
+        qsCheckerEmp = LOGIN_EMP_CODE;
+    }
+
+    // QS MAKER
+
+    const qsMakerTS =
+        document.getElementById("qs_maker").tomselect;
+
+    qsMakerTS.clear();
+    qsMakerTS.clearOptions();
+
+    qsMakerTS.addOption({
+        value: qsMaker,
+        text: qsMaker
+    });
+
+    qsMakerTS.setValue(qsMaker);
+
+    document.getElementById(
+        "qs_maker_emp_code"
+    ).value = qsMakerEmp;
+
+    // QS CHECKER
+
+    const qsCheckerTS =
+        document.getElementById("qs_checker").tomselect;
+
+    qsCheckerTS.clear();
+    qsCheckerTS.clearOptions();
+
+    qsCheckerTS.addOption({
+        value: qsChecker,
+        text: qsChecker
+    });
+
+    qsCheckerTS.setValue(qsChecker);
+
+    document.getElementById(
+        "qs_checker_emp_code"
+    ).value = qsCheckerEmp;
+
+});
+document.getElementById("department")
+.addEventListener("change", function(){
+
+    const project =
+        document.getElementById("project").value;
+
+    const budgetHead =
+        document.getElementById("final_budget_head").value;
+
+    const department =
+        this.value;
+
+    const row = departmentData.find(r =>
+
+        r.project_name === project &&
+        r.final_budget_head_category === budgetHead &&
+        r.department === department
+
+    );
+
+    if(!row) return;
+
+    // ==================================================
+    // Department selected but QS Maker is blank
+    // ==================================================
+
+if (!row.qs_maker || row.qs_maker.trim() === "") {
+
+    loadQSFromBOQDropdown(project);
+
+    return;
+}
+
+    let qsMaker = row.qs_maker;
+    let qsMakerEmp = row.qs_maker_emp_code;
+
+    let qsChecker = row.qs_checker;
+    let qsCheckerEmp = row.qs_checker_emp_code;
+
+    // LOGIN NAME
+
+    if(
+        qsMaker &&
+        qsMaker.toLowerCase() === "login name"
+    ){
+        qsMaker = LOGIN_NAME;
+    }
+
+    if(
+        qsMakerEmp &&
+        qsMakerEmp.toLowerCase() === "login id"
+    ){
+        qsMakerEmp = LOGIN_EMP_CODE;
+    }
+
+    if(
+        qsChecker &&
+        qsChecker.toLowerCase() === "login name"
+    ){
+        qsChecker = LOGIN_NAME;
+    }
+
+    if(
+        qsCheckerEmp &&
+        qsCheckerEmp.toLowerCase() === "login id"
+    ){
+        qsCheckerEmp = LOGIN_EMP_CODE;
+    }
+
+    // QS MAKER
+
+    const makerTS =
+        document.getElementById("qs_maker").tomselect;
+
+    makerTS.clear();
+    makerTS.clearOptions();
+
+    makerTS.addOption({
+        value: qsMaker,
+        text: qsMaker
+    });
+
+    makerTS.setValue(qsMaker);
+
+    document.getElementById(
+        "qs_maker_emp_code"
+    ).value = qsMakerEmp;
+
+
+    // QS CHECKER
+
+    const checkerTS =
+        document.getElementById("qs_checker").tomselect;
+
+    checkerTS.clear();
+    checkerTS.clearOptions();
+
+    checkerTS.addOption({
+        value: qsChecker,
+        text: qsChecker
+    });
+
+    checkerTS.setValue(qsChecker);
+
+    document.getElementById(
+        "qs_checker_emp_code"
+    ).value = qsCheckerEmp;
+
+});
+
+</script>
+</body>
+</html>
